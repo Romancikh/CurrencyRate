@@ -20,7 +20,7 @@ function App() {
         gap={3}
         height="fit-content"
       >
-        <CurrencyInfo className="app_currency-info" />
+        <CurrencyInfo />
         {detailsVisibility && <Details />}
       </Box>
     </Container>
