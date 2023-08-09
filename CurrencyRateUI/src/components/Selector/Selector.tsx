@@ -1,17 +1,18 @@
+import Box from "@mui/material/Box";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
 import { ChangeEvent, useContext, useEffect } from "react";
-import "./Selector.css";
+import { CurrenciesContext } from "../../context/currencies";
 import { SelectedCurrenciesContext } from "../../context/selectedCurrencies";
 import getCurrencyByCode from "../../utils/getCurrencyByCode";
-import { CurrenciesContext } from "../../context/currencies";
 
 type SelectorProps = {
   id: "payment" | "purchased";
   options: string[];
   exchangeRate: number;
-  className?: string;
 };
 
-function Selector({ id, options, exchangeRate, className }: SelectorProps) {
+function Selector({ id, options, exchangeRate }: SelectorProps) {
   const { payment, purchased, setPayment, setPurchased } = useContext(
     SelectedCurrenciesContext
   );
@@ -43,12 +44,18 @@ function Selector({ id, options, exchangeRate, className }: SelectorProps) {
     }
   };
 
-  const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newCurrency = getCurrencyByCode(currencies, event.target.value);
-    if (id === "payment") {
-      setPayment({ ...newCurrency, quantity: payment.quantity });
-    } else {
-      setPurchased({ ...newCurrency, quantity: purchased.quantity });
+  const handleSelectChange = (event: ChangeEvent) => {
+    if (
+      event.target !== null &&
+      "value" in event.target &&
+      typeof event.target.value === "string"
+    ) {
+      const newCurrency = getCurrencyByCode(currencies, event.target.value);
+      if (id === "payment") {
+        setPayment({ ...newCurrency, quantity: payment.quantity });
+      } else {
+        setPurchased({ ...newCurrency, quantity: purchased.quantity });
+      }
     }
   };
 
@@ -70,31 +77,36 @@ function Selector({ id, options, exchangeRate, className }: SelectorProps) {
   }, [exchangeRate]);
 
   return (
-    <>
-      <div className={`selector ${className}`}>
-        <input
-          type="number"
-          id={`${id}Input`}
-          min={0}
-          value={(id === "payment" ? payment.quantity : purchased.quantity)
-            .toString()
-            .replace(/^0{2,}/, "")}
-          className="selector__input"
-          onChange={handleInputChange}
-        />
-        <div className="selector__divisor" />
-        <select
-          id={`${id}Select`}
-          value={id === "payment" ? payment.code : purchased.code}
-          className="selector__select"
-          onChange={handleSelectChange}
-        >
-          {options.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-      </div>
-    </>
+    <Box display="flex" width={350} height={50} alignItems="center">
+      <TextField
+        type="number"
+        id={`${id}Input`}
+        inputProps={{
+          min: 0,
+        }}
+        size="small"
+        value={(id === "payment" ? payment.quantity : purchased.quantity)
+          .toString()
+          .replace(/^0{2,}/, "")}
+        onChange={handleInputChange}
+      />
+      <TextField
+        id={`${id}Select`}
+        select
+        size="small"
+        value={id === "payment" ? payment.code : purchased.code}
+        onChange={handleSelectChange}
+        sx={{
+          flex: "1 1 auto",
+        }}
+      >
+        {options.map((option) => (
+          <MenuItem key={option} value={option}>
+            {option}
+          </MenuItem>
+        ))}
+      </TextField>
+    </Box>
   );
 }
 

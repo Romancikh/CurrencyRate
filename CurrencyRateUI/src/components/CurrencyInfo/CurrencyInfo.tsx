@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import Selector from "../Selector/Selector";
-import "./CurrencyInfo.css";
 import { CurrenciesContext } from "../../context/currencies";
-import getCurrencyCodes from "../../utils/getCurrencyCodesList";
 import { DetailsContext } from "../../context/details";
 import { SelectedCurrenciesContext } from "../../context/selectedCurrencies";
 import useExchangeRate from "../../hooks/useExchangeRate";
+import getCurrencyCodes from "../../utils/getCurrencyCodesList";
+import Selector from "../Selector/Selector";
+import "./CurrencyInfo.css";
 
 type CurrencyInfoProps = {
   className: string;
@@ -46,13 +46,11 @@ function CurrencyInfo({ className }: CurrencyInfoProps) {
           id="payment"
           options={options}
           exchangeRate={parseFloat(exchangeRate)}
-          className="currency-info__selector"
         />
         <Selector
           id="purchased"
           options={options}
           exchangeRate={parseFloat(exchangeRate)}
-          className="currency-info__selector"
         />
       </div>
       <button
