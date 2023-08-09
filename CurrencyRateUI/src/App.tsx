@@ -21,7 +21,7 @@ function App() {
         height="fit-content"
       >
         <CurrencyInfo className="app_currency-info" />
-        {detailsVisibility && <Details className="app__details" />}
+        {detailsVisibility && <Details />}
       </Box>
     </Container>
   );
