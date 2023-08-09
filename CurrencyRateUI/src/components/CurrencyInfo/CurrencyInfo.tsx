@@ -1,17 +1,15 @@
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { useContext, useEffect, useState } from "react";
-import Selector from "../Selector/Selector";
-import "./CurrencyInfo.css";
 import { CurrenciesContext } from "../../context/currencies";
-import getCurrencyCodes from "../../utils/getCurrencyCodesList";
 import { DetailsContext } from "../../context/details";
 import { SelectedCurrenciesContext } from "../../context/selectedCurrencies";
 import useExchangeRate from "../../hooks/useExchangeRate";
+import getCurrencyCodes from "../../utils/getCurrencyCodesList";
+import Selector from "../Selector/Selector";
 
-type CurrencyInfoProps = {
-  className: string;
-};
-
-function CurrencyInfo({ className }: CurrencyInfoProps) {
+function CurrencyInfo() {
   const { currencies } = useContext(CurrenciesContext);
   const { detailsVisibility, setDetailsVisibility } =
     useContext(DetailsContext);
@@ -29,39 +27,41 @@ function CurrencyInfo({ className }: CurrencyInfoProps) {
   }, [currencies]);
 
   return (
-    <div className={`currency-info ${className}`}>
-      <div className="currency-info__summary">
-        <h2 className="payment-currency">
+    <Stack>
+      <Stack>
+        <Typography color="#5e5e5e">
           1 {payment.name ?? "Loading..."} equals
-        </h2>
-        <h1 className="purchased-currency">
+        </Typography>
+        <Typography variant="h5" color="#202020">
           {exchangeRate} {purchased.name ?? "Loading..."}
-        </h1>
-        <span className="update-time">
+        </Typography>
+        <Typography variant="caption" color="#5e5e5e">
           {new Date(exchangeDate).toLocaleString()}
-        </span>
-      </div>
-      <div className="currency-info__selector-container">
+        </Typography>
+      </Stack>
+      <Stack marginTop={8} gap={2}>
         <Selector
           id="payment"
           options={options}
           exchangeRate={parseFloat(exchangeRate)}
-          className="currency-info__selector"
         />
         <Selector
           id="purchased"
           options={options}
           exchangeRate={parseFloat(exchangeRate)}
-          className="currency-info__selector"
         />
-      </div>
-      <button
-        className="button currency-info__button"
+      </Stack>
+      <Button
+        variant="contained"
         onClick={() => setDetailsVisibility(!detailsVisibility)}
+        sx={{
+          alignSelf: "flex-end",
+          marginTop: "20px",
+        }}
       >
         {detailsVisibility ? "Less" : "More"} details
-      </button>
-    </div>
+      </Button>
+    </Stack>
   );
 }
 

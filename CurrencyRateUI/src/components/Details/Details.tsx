@@ -1,33 +1,27 @@
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { useContext } from "react";
-import "./Details.css";
 import { SelectedCurrenciesContext } from "../../context/selectedCurrencies";
 
-type DetailsProps = {
-  className?: string;
-};
-
-function Details({ className }: DetailsProps) {
+function Details() {
   const { payment, purchased } = useContext(SelectedCurrenciesContext);
 
   return (
-    <div className={`details ${className}`}>
-      <div className="currency-details details__currency-details">
-        <div className="currency-details__heading">
+    <Stack gap={3}>
+      <Box>
+        <Typography variant="h5" color="#202020">
           {payment.name}, {payment.symbol}
-        </div>
-        <div className="currency-details__description">
-          {payment.description}
-        </div>
-      </div>
-      <div className="currency-details details__currency-details">
-        <div className="currency-details__heading">
+        </Typography>
+        <Typography variant="body1">{payment.description}</Typography>
+      </Box>
+      <Box>
+        <Typography variant="h5" color="#202020">
           {purchased.name}, {purchased.symbol}
-        </div>
-        <div className="currency-details__description">
-          {purchased.description}
-        </div>
-      </div>
-    </div>
+        </Typography>
+        <Typography variant="body1">{purchased.description}</Typography>
+      </Box>
+    </Stack>
   );
 }
 
