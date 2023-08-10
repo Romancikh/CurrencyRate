@@ -1,7 +1,7 @@
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useContext, useEffect, useState } from "react";
+import Button from "tlp-ui-kit/dist/Button/Button";
 import { CurrenciesContext } from "../../context/currencies";
 import { DetailsContext } from "../../context/details";
 import { SelectedCurrenciesContext } from "../../context/selectedCurrencies";
@@ -54,10 +54,8 @@ function CurrencyInfo() {
       <Button
         variant="contained"
         onClick={() => setDetailsVisibility(!detailsVisibility)}
-        sx={{
-          alignSelf: "flex-end",
-          marginTop: "20px",
-        }}
+        alignSelf="flex-end"
+        marginTop={3}
       >
         {detailsVisibility ? "Less" : "More"} details
       </Button>
