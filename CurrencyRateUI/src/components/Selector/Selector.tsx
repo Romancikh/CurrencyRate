@@ -1,7 +1,6 @@
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import TextField from "@mui/material/TextField";
 import { ChangeEvent, useContext, useEffect } from "react";
+import { Box, MenuItem, Select, TextField } from "tlp-ui-kit";
+import { SelectChangeEvent } from "tlp-ui-kit/dist/Select/Select";
 import { CurrenciesContext } from "../../context/currencies";
 import { SelectedCurrenciesContext } from "../../context/selectedCurrencies";
 import getCurrencyByCode from "../../utils/getCurrencyByCode";
@@ -44,7 +43,7 @@ function Selector({ id, options, exchangeRate }: SelectorProps) {
     }
   };
 
-  const handleSelectChange = (event: ChangeEvent) => {
+  const handleSelectChange = (event: SelectChangeEvent) => {
     if (
       event.target !== null &&
       "value" in event.target &&
@@ -90,22 +89,17 @@ function Selector({ id, options, exchangeRate }: SelectorProps) {
           .replace(/^0{2,}/, "")}
         onChange={handleInputChange}
       />
-      <TextField
-        id={`${id}Select`}
-        select
+      <Select
         size="small"
         value={id === "payment" ? payment.code : purchased.code}
         onChange={handleSelectChange}
-        sx={{
-          flex: "1 1 auto",
-        }}
       >
         {options.map((option) => (
           <MenuItem key={option} value={option}>
             {option}
           </MenuItem>
         ))}
-      </TextField>
+      </Select>
     </Box>
   );
 }

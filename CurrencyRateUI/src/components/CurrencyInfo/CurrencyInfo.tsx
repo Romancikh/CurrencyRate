@@ -1,7 +1,5 @@
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
 import { useContext, useEffect, useState } from "react";
-import Button from "tlp-ui-kit/dist/Button/Button";
+import { Button, Stack, Typography } from "tlp-ui-kit";
 import { CurrenciesContext } from "../../context/currencies";
 import { DetailsContext } from "../../context/details";
 import { SelectedCurrenciesContext } from "../../context/selectedCurrencies";
@@ -39,7 +37,7 @@ function CurrencyInfo() {
           {new Date(exchangeDate).toLocaleString()}
         </Typography>
       </Stack>
-      <Stack marginTop={8} gap={2}>
+      <Stack marginTop={8} spacing={2}>
         <Selector
           id="payment"
           options={options}
