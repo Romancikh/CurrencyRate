@@ -1,6 +1,6 @@
-import CssBaseline from "@mui/material/CssBaseline";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { CssBaseline } from "tlp-ui-kit";
 import App from "./App.tsx";
 import { CurrenciesProvider } from "./context/currencies.tsx";
 import { DetailsProvider } from "./context/details.tsx";
